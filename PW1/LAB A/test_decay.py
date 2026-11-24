@@ -12,14 +12,11 @@ from decay import simulate, simulate_loop
 
 
 def test_starts_at_N0():
-    # at time zero, no atoms have decayed yet
     assert simulate(1000, 0.4)[0] == 1000
 
 
 
 def test_rejects_negative_rate():
-#   Check that calling simulate(...) with a negative lam raises a ValueError.
-#   Which pytest tool checks that an error is raised?
     with pytest.raises(ValueError):
         simulate(1000,-0.4)
 

@@ -9,10 +9,9 @@ Complete the TODOs below. Run with:  python plot.py
 import numpy as np
 import matplotlib.pyplot as plt
 
-LAMBDA = 0.3     # decay constant, given
+LAMBDA = 0.3    
 
-data = np.loadtxt("decay_observed.csv", delimiter=",", skiprows=1)
-t, observed = data[:, 0], data[:, 1]
+t, observed = np.loadtxt("decay_observed.csv",delimiter=",",skiprows=1,unpack=True)
 
 N0 = observed[0]
 analytical = N0 * np.exp(-LAMBDA * t)
@@ -30,6 +29,6 @@ ax2.set_xlabel("time")
 ax2.set_ylabel("count")
 
 fig.tight_layout()
-fig.savefig("figure.png")
+fig.savefig("figure.png",dpi=200)
 
 
