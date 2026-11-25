@@ -33,6 +33,7 @@ fig1.tight_layout()
 fig1.savefig("distrib.png")
 
 # Task 3
+
 fig2, ([ageN, cholN], [trestbpsN, thalachN]) = plt.subplots(2, 2, figsize=(6, 6))
 
 rAge = stats.probplot(age, dist="norm", plot=ageN)[1][2]
@@ -50,3 +51,19 @@ thalachN.set(title="Q-Q Plot: Max Heart Rate", xlabel="Theoretical Quantiles", y
 fig2.tight_layout()
 fig2.savefig("Q-Qplot.png")
 print(f"Correlation with each:\nAge: {rAge}\nChol: {rChol}\nTrestbps:{rTrestbps}\nThalach: {rThalach}")
+
+Wage, page = stats.shapiro(age)
+Wchol, pchol = stats.shapiro(chol)
+Wtrestbps, ptrestbps = stats.shapiro(trestbps)
+Wthalach, pthalach = stats.shapiro(thalach)
+
+results = [
+    ("Age", Wage, page),
+    ("Cholesterol", Wchol, pchol),
+    ("Resting BP", Wtrestbps, ptrestbps),
+    ("Max Heart Rate", Wthalach, pthalach),
+]
+
+for name, W, p in results:
+    status = "Normality REJECTED (not normal)" if p < 0.05 else "Normality NOT rejected (normal OK)"
+    print(f"{name:<15} | W = {W:.4f} | p = {p:.4e} | {status}")
